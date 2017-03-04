@@ -11,8 +11,18 @@ namespace FakeBlog.Models
         [Key]
         public int PublishedPostId { get; set; }
 
+        [Required]
+        [MinLength(2)]
+        public string Title { get; set; }
+
         public string Comments { get; set; }
 
-        public List<PortfolioToPublishedPost> Posts { get; set; }
+        public DateTime DateCreated { get; set; } //Required by default
+
+        public DateTime PublishedAt { get; set; }
+
+        public bool Edited { get; set; }
+
+        public bool IsDraft { get; set; }
     }
 }
