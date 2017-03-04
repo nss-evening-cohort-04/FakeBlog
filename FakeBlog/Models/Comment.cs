@@ -16,7 +16,7 @@ namespace FakeBlog.Models
 
         public string Text { get; set; }
 
-        public int Time { get; set; }
+        public DateTime DateCreated {get; set;}
 
         public List<BlogUser> BlogUsers { get; set; } // List # 1 a keyword //<> List # 2 is a File Ref // Lists = new var name 
 

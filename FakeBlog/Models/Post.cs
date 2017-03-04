@@ -11,11 +11,15 @@ namespace FakeBlog.Models
         [Key]
         public int PostId { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        [MinLength(3)]
+        public string Title { get; set; }
 
-        public string Text { get; set; }
+        public string BodyTexst { get; set; }
+        public DateTime DateCreated {get; set;} //Required by default
+        public DateTime PublishedTime { get; set; } //Required by default
 
-        public int Time { get; set; } 
+        public bool IsDraft { get; set; } //!!you are using this instead of having a draft class!!
 
         public List<Comment> Comments { get; set; } // List # 1 a keyword //<> List # 2 is a File Ref // Lists = new var name 
 
