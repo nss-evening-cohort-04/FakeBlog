@@ -11,8 +11,9 @@ namespace FakeBlog.Models
         [Key]
         public int PublishedPostId { get; set; } //Primary key
 
-        public User Author { get; set; } // 1 to 1 relationship
-
         public Draft OriginalDraft { get; set; } // 1 to 1 relationship
+
+        public DateTime DatePosted { get; set; }
+
     }
 }
