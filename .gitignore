@@ -240,3 +240,8 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+.FakeBlogERD.vpp.lck
+FakeBlogERD.vpp
+FakeBlogERD.vpp.bak_000f
+FakeBlogERD.vpp.bak_001d
