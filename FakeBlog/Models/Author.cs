@@ -28,6 +28,6 @@ namespace FakeBlog.Models
 
         public ApplicationUser BaseUser { get; set; } 
 
-        public List<Portfolio> Portfolios { get; set; } 
+        public List<PublishedPost> Posts { get; set; } 
     }
 }

@@ -14,15 +14,17 @@ namespace FakeBlog.Models
         [Required]
         [MinLength(2)]
         public string Title { get; set; }
-
-        public string Comments { get; set; }
-
+        
         public DateTime DateCreated { get; set; } //Required by default
 
         public DateTime PublishedAt { get; set; }
 
+        public string Body { get; set; }
+
         public bool Edited { get; set; }
 
         public bool IsDraft { get; set; }
+
+        public string Comments { get; set; }
     }
 }
