@@ -7,5 +7,8 @@ namespace FakeBlog.Models
 {
     public class Draft
     {
+        public DateTime DraftDate { get; set; }
+
+        public string AuthorName { get; set; }
     }
 }
