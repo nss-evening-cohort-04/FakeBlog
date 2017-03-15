@@ -7,7 +7,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Collections.Generic;
 
-namespace FakeBlog.Tests
+namespace FakeBlog.Tests.DAL
 {
     [TestClass]
     public class FakeBlogRepoTests
@@ -15,7 +15,7 @@ namespace FakeBlog.Tests
         public Mock<FakeBlogContext> fakeContext { get; set; }
         public FakeBlogRepository repo { get; set; }
         public Mock<DbSet<Post>> mockPostSet { get; set; }
-        public IQueryable<Post> queryPosts { get; set; }
+        public IQueryable<Post> queryPost { get; set; }
         public List<Post> fakePostTable { get; set; }
         public ApplicationUser aUser { get; set; }
         public ApplicationUser bUser { get; set; }
@@ -30,6 +30,15 @@ namespace FakeBlog.Tests
             fakeContext = new Mock<FakeBlogContext>();
             mockPostSet = new Mock<DbSet<Post>>();
             repo = new FakeBlogRepository(fakeContext.Object);
+        }
+
+        public void InitializeTempDatabase()
+        {
+            queryPost = fakePostTable.AsQueryable();
+            mockPostSet.As<IQueryable<Post>>().Setup(b => b.Provider).Returns(queryPost.Provider);
+            mockPostSet.As<IQueryable<Post>>().Setup(b => b.Expression).Returns(queryPost.Expression);
+            mockPostSet.As<IQueryable<Post>>().Setup(b => b.ElementType).Returns(queryPost.ElementType);
+            mockPostSet.As<IQueryable<Post>>().Setup(b => b.GetEnumerator()).Returns(() => queryPost.GetEnumerator());
             aUser = new ApplicationUser
             {
                 AuthorId = "sammy-user-id",
@@ -69,22 +78,17 @@ namespace FakeBlog.Tests
                 DateCreated = DateTime.Now,
                 AuthorId = "sally-user-id"
             };
-        }
 
-        public void InitializeTempDatabase()
-        {
-            queryPosts = fakePostTable.AsQueryable();
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.Provider).Returns(queryPosts.Provider);
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.Expression).Returns(queryPosts.Expression);
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.ElementType).Returns(queryPosts.ElementType);
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.GetEnumerator()).Returns(() => queryPosts.GetEnumerator());
             mockPostSet.Setup(b => b.Add(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Add(post));
+            mockPostSet.Setup(b => b.Remove(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Remove(post));
+
             fakeContext.Setup(c => c.Posts).Returns(mockPostSet.Object);
         }
 
         [TestMethod]
-        public void EnsureICanCreateInstanceofRepo()
+        public void EnsureICanCreateInstanceOfRepo()
         {
+            FakeBlogRepository repo = new FakeBlogRepository();
             Assert.IsNotNull(repo);
         }
 

@@ -8,10 +8,11 @@ namespace FakeBlog.DAL
 {
     public class FakeBlogRepository : IRepository
     {
-        public FakeBlogContext Context;
+        public FakeBlogContext Context { get; set; }
 
         public FakeBlogRepository()
         {
+            Context = new FakeBlogContext();
         }
 
         public FakeBlogRepository(FakeBlogContext context)
@@ -19,17 +20,17 @@ namespace FakeBlog.DAL
             Context = context;
         }
 
-        public void AddPost(Post testPost, ApplicationUser user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EditPostTitle(int postId, string title)
+        public void AddPost(Post newPost, ApplicationUser userHere)
         {
             throw new NotImplementedException();
         }
 
         public void EditPostBody(int postId, string contents)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditPostTitle(int postId, string title)
         {
             throw new NotImplementedException();
         }
