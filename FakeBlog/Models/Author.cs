@@ -17,6 +17,8 @@ namespace FakeBlog.Models
 
         public DateTime AuthorJoinDate { get; set; }
 
+        public ApplicationUser User { get; set; }
+
         public List<DraftPost> DraftPosts { get; set; } // 1 to many relationship
 
         public List<PublishedPost> PublishedPosts { get; set; } // 1 to many relationship
