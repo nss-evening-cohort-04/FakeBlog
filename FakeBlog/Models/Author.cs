@@ -19,6 +19,6 @@ namespace FakeBlog.Models
 
         public ApplicationUser User { get; set; }
 
-        public List<Post> PublishedPosts { get; set; } // 1 to many relationship
+        public List<Post> Posts { get; set; } // 1 to many relationship
     }
 }

@@ -19,6 +19,6 @@ namespace FakeBlog.Models
 
         public string PostContent { get; set; }
 
-        public bool isDraft { get; set; }
+        public bool PostIsDraft { get; set; }
     }
 }
