@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FakeBlog.DAL;
 
 namespace FakeBlog.Tests
 {
@@ -7,9 +8,11 @@ namespace FakeBlog.Tests
     public class FakeBlogRepoTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void EnsureICanCreateInstanceofRepo()
         {
+            FakeBlogRepository repo = new FakeBlogRepository();
 
+            Assert.IsNotNull(repo);
         }
     }
 }
