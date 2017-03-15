@@ -23,6 +23,6 @@ namespace FakeBlog.Models
 
         public DateTime DateCreated { get; set; }
 
-        public ApplicationUser Author { get; set; } // 1 to 1 relationship
+        public ApplicationUser AuthorId { get; set; } // 1 to 1 relationship
     }
 }

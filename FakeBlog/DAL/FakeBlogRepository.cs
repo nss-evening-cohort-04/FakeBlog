@@ -8,12 +8,28 @@ namespace FakeBlog.DAL
 {
     public class FakeBlogRepository : IRepository
     {
-        public void AddPost(Post newPost)
+        public FakeBlogContext Context;
+
+        public FakeBlogRepository()
+        {
+        }
+
+        public FakeBlogRepository(FakeBlogContext context)
+        {
+            Context = context;
+        }
+
+        public void AddPost(Post testPost, ApplicationUser user)
         {
             throw new NotImplementedException();
         }
 
-        public void EditDraft(int postId, string contents)
+        public void EditPostTitle(int postId, string title)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditPostBody(int postId, string contents)
         {
             throw new NotImplementedException();
         }
