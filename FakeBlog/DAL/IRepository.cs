@@ -11,7 +11,7 @@ namespace FakeBlog.DAL
     {
         // List of methods to help deliver features
         // Create
-        void AddPost(Post newPost);
+        void AddPost(Post newPost, ApplicationUser userHere);
 
         // Read
         Post GetPost(int postId);
@@ -19,7 +19,8 @@ namespace FakeBlog.DAL
 
         // Update
         void PublishPost(int postId);
-        void EditDraft(int postId, string contents);
+        void EditPostTitle(int postId, string title);
+        void EditPostBody(int postId, string contents);
 
         // Delete
         void RemovePost(int postId);
