@@ -6,19 +6,19 @@ using System.Web;
 
 namespace FakeBlog.Models
 {
-    public class PublishedPost
+    public class Post
     {
         public Author AuthorID { get; set; }
 
         [Key]
-        public int PublishedPostID { get; set; }
+        public int PostID { get; set; }
 
         [Required]
         [MinLength(3)]
-        public string PublishedPostTitle { get; set; }
+        public string PostTitle { get; set; }
 
-        public string PublishedPostContent { get; set; }
+        public string PostContent { get; set; }
 
-        public PublishedPost DraftPostID { get; set; }
+        public bool isDraft { get; set; }
     }
 }
