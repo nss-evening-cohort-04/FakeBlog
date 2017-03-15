@@ -8,8 +8,6 @@ namespace FakeBlog.Models
 {
     public class Post
     {
-        public Author AuthorID { get; set; }
-
         [Key]
         public int PostID { get; set; }
 
@@ -20,5 +18,7 @@ namespace FakeBlog.Models
         public string PostContent { get; set; }
 
         public bool PostIsDraft { get; set; }
+
+        public ApplicationUser User { get; set; }
     }
 }
