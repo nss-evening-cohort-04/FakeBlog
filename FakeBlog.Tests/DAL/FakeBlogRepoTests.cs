@@ -17,8 +17,9 @@ namespace FakeBlog.Tests.DAL
         public Mock<DbSet<Post>> mockPostSet { get; set; }
         public IQueryable<Post> queryPost { get; set; }
         public List<Post> fakePostTable { get; set; }
-        public ApplicationUser aUser { get; set; }
-        public ApplicationUser bUser { get; set; }
+
+        public ApplicationUser sammy { get; set; }
+        public ApplicationUser sally { get; set; }
         public Post postA { get; set; }
         public Post postB { get; set; }
         public Post postC { get; set; }
@@ -30,11 +31,8 @@ namespace FakeBlog.Tests.DAL
             fakeContext = new Mock<FakeBlogContext>();
             mockPostSet = new Mock<DbSet<Post>>();
             repo = new FakeBlogRepository(fakeContext.Object);
-            aUser = new ApplicationUser { AuthorId = "sammy-author-id", UserName = "Sammy", Id = "sammy-user-id", Email = "sammy@gmail.com" };
-            bUser = new ApplicationUser { AuthorId = "sally-author-id", UserName = "Sally", Id = "sally-user-id", Email = "sally@gmail.com" };
-            postA = new Post { PostId = 12345, IsDraft = false, Title = "My First Post", Contents = "Sample text goes here.  I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
-            postB = new Post { PostId = 23456, IsDraft = true, Title = "My Second Post", Contents = "I can't believe people read my first post ... I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
-            postC = new Post { PostId = 34567, IsDraft = true, Title = "My First Bit Of Ideas", Contents = "This is going to be a blog post about bugs, will write more later.", DateCreated = DateTime.Now, AuthorId = "sally-user-id" };
+            sammy = new ApplicationUser { AuthorId = "sammy-author-id", UserName = "Sammy", Id = "sammy-user-id", Email = "sammy@gmail.com" };
+            sally = new ApplicationUser { AuthorId = "sally-author-id", UserName = "Sally", Id = "sally-user-id", Email = "sally@gmail.com" };
         }
 
         public void InitializeTempDatabase()
@@ -47,6 +45,10 @@ namespace FakeBlog.Tests.DAL
             mockPostSet.Setup(p => p.Add(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Add(post));
             mockPostSet.Setup(p => p.Remove(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Remove(post));
             fakeContext.Setup(p => p.Posts).Returns(mockPostSet.Object);
+            // the posts below shouldn't be here ... but when in the SetupMethod is causes that to fail so I don't know where else they should go
+            // postA = new Post { PostId = 12345, IsDraft = false, Title = "My First Post", Contents = "Sample text goes here.  I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
+            // postB = new Post { PostId = 23456, IsDraft = true, Title = "My Second Post", Contents = "I can't believe people read my first post ... I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
+            // postC = new Post { PostId = 34567, IsDraft = true, Title = "My First Bit Of Ideas", Contents = "This is going to be a blog post about bugs, will write more later.", DateCreated = DateTime.Now, AuthorId = "sally-user-id" };
         }
 
         [TestMethod]
@@ -76,7 +78,7 @@ namespace FakeBlog.Tests.DAL
         {
             //Arrange
             InitializeTempDatabase();
-            repo.AddPost(postA, aUser); //set up above prior to all tests
+            repo.AddPost(postA, sammy); //set up above prior to all tests
             int actualAnswer = 1;
             int expectedAnswer = repo.Context.Posts.Count();
             //Assert
