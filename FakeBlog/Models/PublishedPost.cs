@@ -14,6 +14,8 @@ namespace FakeBlog.Models
         [Required]
         [MinLength(2)]
         public string Title { get; set; }
+
+        public ApplicationUser Owner { get; set; }
         
         public DateTime DateCreated { get; set; } //Required by default
 

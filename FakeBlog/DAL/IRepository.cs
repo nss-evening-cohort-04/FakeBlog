@@ -12,14 +12,18 @@ namespace FakeBlog.DAL
         void AddPublishedPost(string title, ApplicationUser owner);
 
         //Read
-        List<PublishedPost> GetPublishedPostFromUser(int AuthorId);
+        List<PublishedPost> GetPublishedPostFromAuthor(int authorId);
 
-        PublishedPost GetPublishedPost(int PublishedPostId);
+        PublishedPost GetPublishedPost(int postId);
 
         //Update
-        bool AttachUser(int AuthorId, int PublishedPostId);
+        bool AttachAuthor(int authorId, int postId);
+
+        bool IsDraft(int postId);
+
+        bool PostDraft(int postId);
 
         //Delete
-        bool RomovePublishedPost(int PublishedPostId);
+        bool RomovePublishedPost(int postId);
     }
 }
