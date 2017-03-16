@@ -54,7 +54,7 @@ namespace FakeBlog.DAL
 
         public List<Post> GetPostsFromAuthor(string authorId)
         {
-            return Context.Posts.Where(b => b.AuthorId.AuthorId == authorId).ToList();
+            return Context.Posts.Where(p => p.AuthorId.AuthorId == authorId).ToList();
             //--->this not working<---//
         }
 
