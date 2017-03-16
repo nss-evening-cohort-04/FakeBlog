@@ -18,10 +18,16 @@ namespace FakeBlog.DAL
         // Authors will be able to manually publish a draft.
         bool PublishDraftPost(int postId);
 
+        // Authors will be able to unpublish an existing published post
+        bool UnpublishPost(int postId);
+
         // Authors will be able to delete published posts and drafts
         bool DeletePost(int postId);
 
-        // Authors will be able to edit a drafts
-        void EditDraftPost(int postId, string editedTitle, string editedContent);
+        // Authors will be able to edit a draft's Title
+        void EditPostTitle(int postId, string editedTitle);
+
+        // Authors will be able to edit a draft's Content
+        void EditPostContent(int postId, string editedContent);
     }
 }

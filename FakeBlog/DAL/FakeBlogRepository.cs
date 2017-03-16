@@ -40,7 +40,12 @@ namespace FakeBlog.DAL
             return false;
         }
 
-        public void EditDraftPost(int postId, string editedTitle, string editedContent)
+        public void EditPostTitle(int postId, string editedTitle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditPostContent(int postId, string editedContent)
         {
             throw new NotImplementedException();
         }
@@ -61,6 +66,11 @@ namespace FakeBlog.DAL
                 return true;
             }
             return false;
+        }
+
+        public bool UnpublishPost(int postId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

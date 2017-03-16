@@ -103,6 +103,12 @@ namespace FakeBlog.Tests
         }
 
         [TestMethod]
+        public void EnsureICanUnpublishPost()
+        {
+
+        }
+
+        [TestMethod]
         public void EnsureICanDeletePost()
         {
             CreateFakeDatabase();
@@ -117,6 +123,18 @@ namespace FakeBlog.Tests
             bool _post1WasDeleted = repo.DeletePost(1);
 
             Assert.IsFalse(_post1WasDeleted);
+        }
+
+        [TestMethod]
+        public void EnsureICanEditPostTitle()
+        {
+
+        }
+
+        [TestMethod]
+        public void EnsureICanEditPostContent()
+        {
+
         }
     }
 }
