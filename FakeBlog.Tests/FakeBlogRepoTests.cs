@@ -30,61 +30,23 @@ namespace FakeBlog.Tests.DAL
             fakeContext = new Mock<FakeBlogContext>();
             mockPostSet = new Mock<DbSet<Post>>();
             repo = new FakeBlogRepository(fakeContext.Object);
+            aUser = new ApplicationUser { AuthorId = "sammy-author-id", UserName = "Sammy", Id = "sammy-user-id", Email = "sammy@gmail.com" };
+            bUser = new ApplicationUser { AuthorId = "sally-author-id", UserName = "Sally", Id = "sally-user-id", Email = "sally@gmail.com" };
+            postA = new Post { PostId = 12345, IsDraft = false, Title = "My First Post", Contents = "Sample text goes here.  I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
+            postB = new Post { PostId = 23456, IsDraft = true, Title = "My Second Post", Contents = "I can't believe people read my first post ... I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
+            postC = new Post { PostId = 34567, IsDraft = true, Title = "My First Bit Of Ideas", Contents = "This is going to be a blog post about bugs, will write more later.", DateCreated = DateTime.Now, AuthorId = "sally-user-id" };
         }
 
         public void InitializeTempDatabase()
         {
             queryPost = fakePostTable.AsQueryable();
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.Provider).Returns(queryPost.Provider);
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.Expression).Returns(queryPost.Expression);
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.ElementType).Returns(queryPost.ElementType);
-            mockPostSet.As<IQueryable<Post>>().Setup(b => b.GetEnumerator()).Returns(() => queryPost.GetEnumerator());
-            aUser = new ApplicationUser
-            {
-                AuthorId = "sammy-author-id",
-                UserName = "Sammy",
-                Id = "sammy-user-id",
-                Email = "sammy@gmail.com"
-            };
-            bUser = new ApplicationUser
-            {
-                AuthorId = "sally-author-id",
-                UserName = "Sally",
-                Id = "sally-user-id",
-                Email = "sally@gmail.com"
-            };
-            postA = new Post
-            {
-                PostId = 12345,
-                IsDraft = false,
-                Title = "My First Post",
-                Contents = "Sample text goes here.  I wonder what I will write about in the future.  No one will ever read this so it's ok.",
-                DateCreated = DateTime.Now,
-                AuthorId = "sammy-user-id"
-            };
-            postB = new Post
-            {
-                PostId = 23456,
-                IsDraft = true,
-                Title = "My Second Post",
-                Contents = "I can't believe people read my first post ... I wonder what I will write about in the future.  No one will ever read this so it's ok.",
-                DateCreated = DateTime.Now,
-                AuthorId = "sammy-user-id"
-            };
-            postC = new Post
-            {
-                PostId = 34567,
-                IsDraft = true,
-                Title = "My First Bit Of Ideas",
-                Contents = "This is going to be a blog post about bugs, will write more later.",
-                DateCreated = DateTime.Now,
-                AuthorId = "sally-user-id"
-            };
-
-            mockPostSet.Setup(b => b.Add(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Add(post));
-            mockPostSet.Setup(b => b.Remove(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Remove(post));
-
-            fakeContext.Setup(c => c.Posts).Returns(mockPostSet.Object);
+            mockPostSet.As<IQueryable<Post>>().Setup(p => p.Provider).Returns(queryPost.Provider);
+            mockPostSet.As<IQueryable<Post>>().Setup(p => p.Expression).Returns(queryPost.Expression);
+            mockPostSet.As<IQueryable<Post>>().Setup(p => p.ElementType).Returns(queryPost.ElementType);
+            mockPostSet.As<IQueryable<Post>>().Setup(p => p.GetEnumerator()).Returns(() => queryPost.GetEnumerator());
+            mockPostSet.Setup(p => p.Add(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Add(post));
+            mockPostSet.Setup(p => p.Remove(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Remove(post));
+            fakeContext.Setup(p => p.Posts).Returns(mockPostSet.Object);
         }
 
         [TestMethod]
