@@ -19,8 +19,8 @@ namespace FakeBlog.DAL
 
         // Update
         void PublishPost(int postId);
-        void EditPostTitle(int postId, string title);
-        void EditPostBody(int postId, string contents);
+        void EditPostTitle(int postId, string newTitle);
+        void EditPostBody(int postId, string newContents);
 
         // Delete
         void RemovePost(int postId);

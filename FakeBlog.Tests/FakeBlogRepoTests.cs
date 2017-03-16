@@ -41,14 +41,16 @@ namespace FakeBlog.Tests.DAL
             mockPostSet.As<IQueryable<Post>>().Setup(b => b.GetEnumerator()).Returns(() => queryPost.GetEnumerator());
             aUser = new ApplicationUser
             {
-                AuthorId = "sammy-user-id",
+                AuthorId = "sammy-author-id",
                 UserName = "Sammy",
+                Id = "sammy-user-id",
                 Email = "sammy@gmail.com"
             };
             bUser = new ApplicationUser
             {
-                AuthorId = "sally-user-id",
+                AuthorId = "sally-author-id",
                 UserName = "Sally",
+                Id = "sally-user-id",
                 Email = "sally@gmail.com"
             };
             postA = new Post

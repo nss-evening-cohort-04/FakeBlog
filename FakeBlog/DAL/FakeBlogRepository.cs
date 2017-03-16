@@ -20,39 +20,65 @@ namespace FakeBlog.DAL
             Context = context;
         }
 
-        public void AddPost(Post newPost, ApplicationUser userHere)
+        public void AddPost(Post newPost, ApplicationUser userHere) 
         {
-            throw new NotImplementedException();
+            Context.Posts.Add(newPost);
+            Context.SaveChanges();
+            //--->this not working<---//
         }
 
-        public void EditPostBody(int postId, string contents)
+        public void EditPostBody(int postId, string newContents)
         {
-            throw new NotImplementedException();
+            Post postToEdit = GetPost(postId);
+            newContents = postToEdit.Contents;
+            Context.Posts.Attach(postToEdit);
+            Context.SaveChanges();
+            //--->this not working<---//
         }
 
-        public void EditPostTitle(int postId, string title)
+        public void EditPostTitle(int postId, string newTitle)
         {
-            throw new NotImplementedException();
+            Post postToEdit = GetPost(postId);
+            newTitle = postToEdit.Title;
+            Context.Posts.Attach(postToEdit);
+            Context.SaveChanges();
+            //--->this not working<---//
         }
 
         public Post GetPost(int postId)
         {
-            throw new NotImplementedException();
+            Post postIWant = Context.Posts.FirstOrDefault(p => p.PostId == postId);
+            return postIWant;
+            //--->this not working<---//
         }
 
         public List<Post> GetPostsFromAuthor(string authorId)
         {
-            throw new NotImplementedException();
+            return Context.Posts.Where(b => b.AuthorId.AuthorId == authorId).ToList();
+            //--->this not working<---//
         }
 
         public void PublishPost(int postId)
         {
-            throw new NotImplementedException();
+            Post postToEdit = GetPost(postId);
+            if (postToEdit.IsDraft == true)
+            {
+                //set IsDraft to false ... not sure how to do that
+            }
+            Context.Posts.Attach(postToEdit);
+            Context.SaveChanges();
+            //--->this not working<---//
         }
 
         public void RemovePost(int postId)
         {
-            throw new NotImplementedException();
+            Post postToRemove = GetPost(postId);
+            if (postToRemove != null)
+            {
+                Context.Posts.Remove(postToRemove);
+                Context.SaveChanges();
+            }
+            //--->this not working<---//
         }
     }
 }
