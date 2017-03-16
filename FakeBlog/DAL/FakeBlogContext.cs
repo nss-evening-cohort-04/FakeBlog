@@ -9,7 +9,6 @@ namespace FakeBlog.DAL
 {
     public class FakeBlogContext : ApplicationDbContext
     {
-        public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
     }
 }

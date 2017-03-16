@@ -8,19 +8,23 @@ namespace FakeBlog.DAL
 {
     public class FakeBlogRepository : IFakeBlogRepository
     {
+        public FakeBlogContext Context { get; set; }
+
         public FakeBlogRepository()
         {
-
+            Context = new FakeBlogContext();
         }
 
-        public void AddAuthor(string authorName, ApplicationUser user)
+        public FakeBlogRepository(FakeBlogContext context)
         {
-            throw new NotImplementedException();
+            Context = context;
         }
 
-        public void CreateDraftPost(Author authorId, string postTitle, string postContent)
+        public void CreateDraftPost(ApplicationUser owner, string postTitle, string postContent)
         {
-            throw new NotImplementedException();
+            Post post = new Models.Post { User = owner, PostTitle = postTitle, PostContent = postContent, PostIsDraft = true };
+            Context.Posts.Add(post);
+            Context.SaveChanges();
         }
 
         public void DeletePost(int postId)
@@ -33,10 +37,10 @@ namespace FakeBlog.DAL
             throw new NotImplementedException();
         }
 
-        public List<Post> GetPublishedPosts(Author authorId)
-        {
-            throw new NotImplementedException();
-        }
+        //public List<Post> GetPublishedPosts(Author authorId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void PublishDraftPost(int postId)
         {

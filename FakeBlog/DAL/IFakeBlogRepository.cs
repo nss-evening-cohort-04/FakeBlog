@@ -9,14 +9,11 @@ namespace FakeBlog.DAL
 {
     public interface IFakeBlogRepository
     {
-        // Users who signup are considered "Authors"
-        void AddAuthor(string authorName, ApplicationUser user);
-
         // Published posts will be viewable by everyone
-        List<Post> GetPublishedPosts(Author authorId);
+        //List<Post> GetPublishedPosts(Author authorId);
 
         // Authors will be able to make drafts for blog posts
-        void CreateDraftPost(Author authorId, string postTitle, string postContent);
+        void CreateDraftPost(ApplicationUser owner, string postTitle, string postContent);
 
         // Authors will be able to manually publish a draft.
         void PublishDraftPost(int postId);
