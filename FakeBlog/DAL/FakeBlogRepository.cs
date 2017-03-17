@@ -22,27 +22,53 @@ namespace FakeBlog.DAL
 
         public void CreateDraftPost(ApplicationUser owner, string postTitle, string postContent)
         {
-            Post post = new Models.Post { User = owner, PostTitle = postTitle, PostContent = postContent, PostIsDraft = true };
+            Post post = new Post { User = owner, PostTitle = postTitle, PostContent = postContent, PostIsDraft = true };
             Context.Posts.Add(post);
             Context.SaveChanges();
         }
 
-        public void DeletePost(int postId)
+        public bool DeletePost(int postId)
+        {
+            Post postToDelete = Context.Posts.FirstOrDefault(post => post.PostID == postId);
+            if (postToDelete != null)
+            {
+                Context.Posts.Remove(postToDelete);
+                Context.SaveChanges();
+                // Return true if post exists
+                return true;
+            }
+            return false;
+        }
+
+        public void EditPostTitle(int postId, string editedTitle)
         {
             throw new NotImplementedException();
         }
 
-        public void EditDraftPost(int postId, string editedTitle, string editedContent)
+        public void EditPostContent(int postId, string editedContent)
         {
             throw new NotImplementedException();
         }
 
-        //public List<Post> GetPublishedPosts(Author authorId)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public List<Post> GetPosts(ApplicationUser owner)
+        {
+            throw new NotImplementedException();
+        }
 
-        public void PublishDraftPost(int postId)
+        public bool PublishDraftPost(int postId)
+        {
+            Post postToPublish = Context.Posts.FirstOrDefault(post => post.PostID == postId);
+            if (postToPublish != null)
+            {
+                postToPublish.PostIsDraft = false;
+                Context.SaveChanges();
+                // Return true if post exists
+                return true;
+            }
+            return false;
+        }
+
+        public bool UnpublishPost(int postId)
         {
             throw new NotImplementedException();
         }

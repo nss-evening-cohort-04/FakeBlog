@@ -19,6 +19,8 @@ namespace FakeBlog.Tests
         public List<Post> fake_post_table { get; set; }
         public ApplicationUser John { get; set; }
         public ApplicationUser Jane { get; set; }
+        public string PostTitle { get; set; }
+        public string PostContent { get; set; }
 
         [TestInitialize]
         public void Setup()
@@ -30,6 +32,9 @@ namespace FakeBlog.Tests
 
             John = new ApplicationUser { Id = "John-id-1", UserName = "John", Email = "john@gmail.com" };
             Jane = new ApplicationUser { Id = "Jane-id-1", UserName = "Jane", Email = "jane@gmail.com" };
+
+            PostTitle = "My Coding Story";
+            PostContent = "Blah blah blah blah blah blah blah blah blah blah blah blah blah.";
         }
 
         public void CreateFakeDatabase()
@@ -75,12 +80,61 @@ namespace FakeBlog.Tests
         {
             CreateFakeDatabase();
 
-            string _postTitle = "My Coding Story";
-            string _postContent = "Blah blah blah blah blah blah blah blah blah blah blah blah blah.";
-
-            repo.CreateDraftPost(John, _postTitle, _postContent);
+            repo.CreateDraftPost(John, PostTitle, PostContent);
 
             Assert.AreEqual(1, repo.Context.Posts.Count());
+        }
+
+        [TestMethod]
+        public void EnsureICanPublishDraftPost()
+        {
+            CreateFakeDatabase();
+
+            repo.CreateDraftPost(John, PostTitle, PostContent);
+
+            bool _post0WasPublished = repo.PublishDraftPost(0);
+
+            Assert.IsTrue(_post0WasPublished);
+
+            // Also, ensure attempts to publish non-existant posts fail
+            bool _post1WasPublished = repo.PublishDraftPost(1);
+
+            Assert.IsFalse(_post1WasPublished);
+        }
+
+        [TestMethod]
+        public void EnsureICanUnpublishPost()
+        {
+
+        }
+
+        [TestMethod]
+        public void EnsureICanDeletePost()
+        {
+            CreateFakeDatabase();
+
+            repo.CreateDraftPost(John, PostTitle, PostContent);
+
+            bool _post0WasDeleted = repo.DeletePost(0);
+
+            Assert.IsTrue(_post0WasDeleted);
+
+            // Also, ensure attempts to delete non-existant posts fail
+            bool _post1WasDeleted = repo.DeletePost(1);
+
+            Assert.IsFalse(_post1WasDeleted);
+        }
+
+        [TestMethod]
+        public void EnsureICanEditPostTitle()
+        {
+
+        }
+
+        [TestMethod]
+        public void EnsureICanEditPostContent()
+        {
+
         }
     }
 }

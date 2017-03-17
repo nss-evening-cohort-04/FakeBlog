@@ -10,18 +10,24 @@ namespace FakeBlog.DAL
     public interface IFakeBlogRepository
     {
         // Published posts will be viewable by everyone
-        //List<Post> GetPublishedPosts(Author authorId);
+        List<Post> GetPosts(ApplicationUser owner);
 
         // Authors will be able to make drafts for blog posts
         void CreateDraftPost(ApplicationUser owner, string postTitle, string postContent);
 
         // Authors will be able to manually publish a draft.
-        void PublishDraftPost(int postId);
+        bool PublishDraftPost(int postId);
+
+        // Authors will be able to unpublish an existing published post
+        bool UnpublishPost(int postId);
 
         // Authors will be able to delete published posts and drafts
-        void DeletePost(int postId);
+        bool DeletePost(int postId);
 
-        // Authors will be able to edit a drafts
-        void EditDraftPost(int postId, string editedTitle, string editedContent);
+        // Authors will be able to edit a draft's Title
+        void EditPostTitle(int postId, string editedTitle);
+
+        // Authors will be able to edit a draft's Content
+        void EditPostContent(int postId, string editedContent);
     }
 }
