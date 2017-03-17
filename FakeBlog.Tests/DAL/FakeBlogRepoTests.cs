@@ -33,8 +33,10 @@ namespace FakeBlog.Tests.DAL
             repo = new FakeBlogRepository(fakeContext.Object);
             sammy = new ApplicationUser { AuthorId = "sammy-author-id", UserName = "Sammy", Id = "sammy-user-id", Email = "sammy@gmail.com" };
             sally = new ApplicationUser { AuthorId = "sally-author-id", UserName = "Sally", Id = "sally-user-id", Email = "sally@gmail.com" };
+            postA = new Post { PostId = 12345, IsDraft = false, Title = "My First Post", Contents = "Sample text goes here.  I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now };
+            postB = new Post { PostId = 23456, IsDraft = true, Title = "My Second Post", Contents = "I can't believe people read my first post ... I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now };
+            postC = new Post { PostId = 34567, IsDraft = true, Title = "My First Bit Of Ideas", Contents = "This is going to be a blog post about bugs, will write more later.", DateCreated = DateTime.Now };
         }
-
         public void InitializeTempDatabase()
         {
             queryPost = fakePostTable.AsQueryable();
@@ -45,10 +47,6 @@ namespace FakeBlog.Tests.DAL
             mockPostSet.Setup(p => p.Add(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Add(post));
             mockPostSet.Setup(p => p.Remove(It.IsAny<Post>())).Callback((Post post) => fakePostTable.Remove(post));
             fakeContext.Setup(p => p.Posts).Returns(mockPostSet.Object);
-            // the posts below shouldn't be here ... but when in the SetupMethod is causes that to fail so I don't know where else they should go
-            // postA = new Post { PostId = 12345, IsDraft = false, Title = "My First Post", Contents = "Sample text goes here.  I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
-            // postB = new Post { PostId = 23456, IsDraft = true, Title = "My Second Post", Contents = "I can't believe people read my first post ... I wonder what I will write about in the future.  No one will ever read this so it's ok.", DateCreated = DateTime.Now, AuthorId = "sammy-user-id" };
-            // postC = new Post { PostId = 34567, IsDraft = true, Title = "My First Bit Of Ideas", Contents = "This is going to be a blog post about bugs, will write more later.", DateCreated = DateTime.Now, AuthorId = "sally-user-id" };
         }
 
         [TestMethod]

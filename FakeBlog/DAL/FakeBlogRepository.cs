@@ -24,40 +24,39 @@ namespace FakeBlog.DAL
         {
             Context.Posts.Add(newPost);
             Context.SaveChanges();
-            //--->this not working<---//
         }
 
+        //--->this not working<---//
         public void EditPostBody(int postId, string newContents)
         {
             Post postToEdit = GetPost(postId);
             newContents = postToEdit.Contents;
             Context.Posts.Attach(postToEdit);
             Context.SaveChanges();
-            //--->this not working<---//
         }
 
+        //--->this not working<---//
         public void EditPostTitle(int postId, string newTitle)
         {
             Post postToEdit = GetPost(postId);
             newTitle = postToEdit.Title;
             Context.Posts.Attach(postToEdit);
             Context.SaveChanges();
-            //--->this not working<---//
         }
 
         public Post GetPost(int postId)
         {
             Post postIWant = Context.Posts.FirstOrDefault(p => p.PostId == postId);
             return postIWant;
-            //--->this not working<---//
         }
 
+        //--->this not working<---//
         public List<Post> GetPostsFromAuthor(string authorId)
         {
             return Context.Posts.Where(p => p.AuthorId.AuthorId == authorId).ToList();
-            //--->this not working<---//
         }
 
+        //--->this not working ... NOT FINISHED<---//
         public void PublishPost(int postId)
         {
             Post postToEdit = GetPost(postId);
@@ -78,7 +77,6 @@ namespace FakeBlog.DAL
                 Context.Posts.Remove(postToRemove);
                 Context.SaveChanges();
             }
-            //--->this not working<---//
         }
     }
 }
