@@ -1,22 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
 namespace FakeBlog.Models
 {
     public class Post
     {
         [Key]
-        public int PostId { get; set; }
+        public int PostID { get; set; }
 
         [Required]
         [MinLength(3)]
-        public string Title { get; set; }
+        public string PostTitle { get; set; }
 
-        public DateTime DateCreated { get; set; } // Required by default
-        public DateTime PublishedAt { get; set; }
-        public string Body { get; set; }
-        public bool IsDraft { get; set; }
-        public bool Edited { get; set; }
-        public string URL { get; set; }
+        public string PostContent { get; set; }
+
+        public bool PostIsDraft { get; set; }
+
+        public ApplicationUser User { get; set; }
     }
 }
