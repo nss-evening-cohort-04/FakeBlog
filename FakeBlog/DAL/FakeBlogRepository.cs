@@ -32,41 +32,34 @@ namespace FakeBlog.DAL
             return postIWant;
         }
 
-        //--->this not working<---//
-        public List<Post> GetPostsFromAuthor(string authorId)
-        {
-            return Context.Posts.Where(p => p.AuthorId.AuthorId == authorId).ToList();
-        }
-
-        //--->this not working<---//
         public void EditPostBody(int postId, string newContents)
         {
             Post postToEdit = GetPost(postId);
-            newContents = postToEdit.Contents;
-            Context.Posts.Attach(postToEdit);
-            Context.SaveChanges();
+            if (postToEdit.Contents != null)
+            {
+                postToEdit.Contents = newContents;
+                Context.SaveChanges();
+            }
         }
 
-        //--->this not working<---//
         public void EditPostTitle(int postId, string newTitle)
         {
             Post postToEdit = GetPost(postId);
-            newTitle = postToEdit.Title;
-            Context.Posts.Attach(postToEdit);
-            Context.SaveChanges();
+            if (postToEdit.Title != null)
+            {
+                postToEdit.Title = newTitle;
+                Context.SaveChanges();
+            }
         }
 
-        //--->this not working ... NOT FINISHED<---//
         public void PublishPost(int postId)
         {
             Post postToEdit = GetPost(postId);
-            if (postToEdit.IsDraft == true)
+            if (postToEdit.IsDraft.Equals(true))
             {
-                //set IsDraft to false ... not sure how to do that
+                postToEdit.IsDraft = false;
+                Context.SaveChanges();
             }
-            Context.Posts.Attach(postToEdit);
-            Context.SaveChanges();
-            //--->this not working<---//
         }
 
         public void RemovePost(int postId)

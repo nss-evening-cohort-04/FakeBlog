@@ -97,18 +97,6 @@ namespace FakeBlog.Tests.DAL
         }
 
         [TestMethod]
-        public void EnsureICanGetAllPostsByAuthor()
-        {
-            fakePostTable.Add(postA);
-            fakePostTable.Add(postB);
-            InitializeTempDatabase();
-            int actualAnswer = 2;
-            List<Post> allSammysPosts = repo.GetPostsFromAuthor("sammy-user-id");
-            int expectedAnswer = allSammysPosts.Count();
-            Assert.AreEqual(expectedAnswer, actualAnswer);
-        }
-
-        [TestMethod]
         public void EnsureICanKnowIfPostIsDraft()
         {
             fakePostTable.Add(postB);
