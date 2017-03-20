@@ -25,9 +25,9 @@ namespace FakeBlog.DAL
         bool DeletePost(int postId);
 
         // Authors will be able to edit a draft's Title
-        void EditPostTitle(int postId, string editedTitle);
+        bool EditPostTitle(int postId, string editedTitle);
 
         // Authors will be able to edit a draft's Content
-        void EditPostContent(int postId, string editedContent);
+        bool EditPostContent(int postId, string editedContent);
     }
 }

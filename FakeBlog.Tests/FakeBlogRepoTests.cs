@@ -76,6 +76,20 @@ namespace FakeBlog.Tests
         }
 
         [TestMethod]
+        public void EnsureICanGetPosts()
+        {
+            CreateFakeDatabase();
+
+            repo.CreateDraftPost(John, PostTitle, PostContent);
+            repo.CreateDraftPost(John, PostTitle, PostContent);
+            repo.CreateDraftPost(Jane, PostTitle, PostContent);
+
+            List<Post> posts = repo.GetPosts(John);
+
+            Assert.AreEqual(2, posts.Count());
+        }
+
+        [TestMethod]
         public void EnsureICanCreateDraftPost()
         {
             CreateFakeDatabase();
@@ -105,7 +119,20 @@ namespace FakeBlog.Tests
         [TestMethod]
         public void EnsureICanUnpublishPost()
         {
+            CreateFakeDatabase();
 
+            // First, create fake post
+            repo.CreateDraftPost(John, PostTitle, PostContent);
+
+            // Then, publish post
+            bool _post0WasPublished = repo.PublishDraftPost(0);
+
+            Assert.IsTrue(_post0WasPublished);
+
+            // Finally, unpublish post
+            bool _post0WasUnpublished = repo.UnpublishPost(0);
+
+            Assert.IsTrue(_post0WasUnpublished);
         }
 
         [TestMethod]
@@ -128,13 +155,33 @@ namespace FakeBlog.Tests
         [TestMethod]
         public void EnsureICanEditPostTitle()
         {
+            CreateFakeDatabase();
 
+            // First, create new draft post
+            repo.CreateDraftPost(John, PostTitle, PostContent);
+
+            Assert.AreEqual(1, repo.Context.Posts.Count());
+
+            // Next, edit post title
+            bool _post0TitleWasEdited = repo.EditPostTitle(0, "New Title");
+
+            Assert.IsTrue(_post0TitleWasEdited);
         }
 
         [TestMethod]
         public void EnsureICanEditPostContent()
         {
+            CreateFakeDatabase();
 
+            // First, create new draft post
+            repo.CreateDraftPost(John, PostTitle, PostContent);
+
+            Assert.AreEqual(1, repo.Context.Posts.Count());
+
+            // Next, edit post title
+            bool _post0ContentWasEdited = repo.EditPostContent(0, "New content.");
+
+            Assert.IsTrue(_post0ContentWasEdited);
         }
     }
 }

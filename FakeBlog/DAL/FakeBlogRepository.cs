@@ -40,19 +40,36 @@ namespace FakeBlog.DAL
             return false;
         }
 
-        public void EditPostTitle(int postId, string editedTitle)
+        public bool EditPostTitle(int postId, string editedTitle)
         {
-            throw new NotImplementedException();
+            Post postTitleToEdit = Context.Posts.FirstOrDefault(post => post.PostID == postId);
+            if (postTitleToEdit != null)
+            {
+                postTitleToEdit.PostTitle = editedTitle;
+                Context.SaveChanges();
+                // Return true if post exists
+                return true;
+            }
+            return false;
         }
 
-        public void EditPostContent(int postId, string editedContent)
+        public bool EditPostContent(int postId, string editedContent)
         {
-            throw new NotImplementedException();
+            Post postContentToEdit = Context.Posts.FirstOrDefault(post => post.PostID == postId);
+            if (postContentToEdit != null)
+            {
+                postContentToEdit.PostContent = editedContent;
+                Context.SaveChanges();
+                // Return true if post exists
+                return true;
+            }
+            return false;
         }
 
         public List<Post> GetPosts(ApplicationUser owner)
         {
-            throw new NotImplementedException();
+            List<Post> posts = Context.Posts.Where(post => post.User.Id == owner.Id).ToList();
+            return posts;
         }
 
         public bool PublishDraftPost(int postId)
@@ -70,7 +87,15 @@ namespace FakeBlog.DAL
 
         public bool UnpublishPost(int postId)
         {
-            throw new NotImplementedException();
+            Post postToUnpublish = Context.Posts.FirstOrDefault(post => post.PostID == postId);
+            if (postToUnpublish != null)
+            {
+                postToUnpublish.PostIsDraft = true;
+                Context.SaveChanges();
+                // Return true if post exists
+                return true;
+            }
+            return false;
         }
     }
 }
